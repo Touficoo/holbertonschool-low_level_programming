@@ -1,8 +1,9 @@
-#include <stdio.h>
+#include <unistd.h>
 
 int main(void)
 {
-   const char str[] = "_putchar\n";
-   write(1, str, sizeof(str) - 1);
-   return 0;
+    const char str[] = "_putchar\n";
+    size_t len = sizeof(str) - 1;
+    write(STDOUT_FILENO, str, len);
+    return 0;
 }
