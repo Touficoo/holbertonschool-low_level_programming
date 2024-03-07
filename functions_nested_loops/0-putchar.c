@@ -2,6 +2,6 @@
 
 int main(void)
 {
-    write(1, "_putchar\n", 9);
-    return 0;
+   write(1, "_putchar\n", sizeof("_putchar\n") - 1);
+   return 0;
 }
