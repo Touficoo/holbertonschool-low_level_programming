@@ -1,5 +1,5 @@
 #include <main.h>
-#include <stdlib.h>
+#include <stdio.h>
 
 /**
  * infinite_add - Adds two numbers
@@ -12,7 +12,7 @@
  */
 char *infinite_add(char *n1, char *n2, char *r, int size_r)
 {
-    int len1 = 0, len2 = 0, carry = 0, sum, i, j;
+    int len1 = 0, len2 = 0, carry = 0, sum, i;
 
     while (n1[len1] != '\0')
         len1++;
