@@ -1,6 +1,6 @@
-// 103-infinite_add.c
-#include "main.h"
 #include <stdio.h>
+#include <stdlib.h>
+
 /**
  * infinite_add - Adds two numbers
  * @n1: The first number as a string
@@ -8,47 +8,91 @@
  * @r: The buffer to store the result
  * @size_r: The size of the buffer
  *
- * Return: A pointer to the result, or 0 if the result cannot be stored in r
+ * Return: A pointer to the result or 0 if the result cannot be stored in r
  */
 char *infinite_add(char *n1, char *n2, char *r, int size_r)
 {
-    int carry = 0;
-    int sum;
-    int len1 = 0, len2 = 0;
-    int i, j;
+    int len1 = 0, len2 = 0, carry = 0, sum, i, j;
 
-    /* Calculate the length of n1 and n2 */
     while (n1[len1] != '\0')
         len1++;
     while (n2[len2] != '\0')
         len2++;
 
-    /* Check if there is enough space in r to store the result */
-    if (len1 + len2 >= size_r)
-        return 0;
+    if (len1 > size_r || len2 > size_r)
+        return (0);
 
-    /* Perform addition from right to left */
-    for (i = len1 - 1, j = len2 - 1; i >= 0 || j >= 0 || carry; i--, j--)
+    len1--;
+    len2--;
+    r[size_r] = '\0';
+
+    for (i = size_r - 1; len1 >= 0 || len2 >= 0 || carry; i--)
     {
         sum = carry;
-        if (i >= 0)
-            sum += n1[i] - '0';
-        if (j >= 0)
-            sum += n2[j] - '0';
+
+        if (len1 >= 0)
+            sum += n1[len1--] - '0';
+        if (len2 >= 0)
+            sum += n2[len2--] - '0';
+
         carry = sum / 10;
-        r[len1 + len2 - 1 - i - j] = sum % 10 + '0';
+        r[i] = (sum % 10) + '0';
     }
 
-    /* Add null terminator to the end of the result */
-    r[len1 + len2] = '\0';
+    if (i < 0)
+        return (0);
 
-    /* Reverse the result string */
-    for (i = 0, j = len1 + len2 - 1; i < j; i++, j--)
+    return (&r[i + 1]);
+}
+
+int main(void)
+{
+    char *n = "1234567892434574367823574575678477685785645685876876774586734734563456453743756756784458";
+    char *m = "9034790663470697234682914569346259634958693246597324659762347956349265983465962349569346";
+    char r[100];
+    char r2[10];
+    char r3[11];
+    char *res;
+
+    res = infinite_add(n, m, r, 100);
+    if (res == 0)
     {
-        char temp = r[i];
-        r[i] = r[j];
-        r[j] = temp;
+        printf("Error\n");
     }
-
-    return r;
+    else
+    {
+        printf("%s + %s = %s\n", n, m, res);
+    }
+    n = "1234567890";
+    m = "1";
+    res = infinite_add(n, m, r2, 10);
+    if (res == 0)
+    {
+        printf("Error\n");
+    }
+    else
+    {
+        printf("%s + %s = %s\n", n, m, res);
+    }
+    n = "999999999";
+    m = "1";
+    res = infinite_add(n, m, r2, 10);
+    if (res == 0)
+    {
+        printf("Error\n");
+    }
+    else
+    {
+        printf("%s + %s = %s\n", n, m, res);
+    }
+    res = infinite_add(n, m, r3, 11);
+    if (res == 0)
+    {
+        printf("Error\n");
+    }
+    else
+    {
+        printf("%s + %s = %s\n", n, m, res);
+    }
+    return (0);
 }
