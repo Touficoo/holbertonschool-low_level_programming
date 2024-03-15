@@ -9,19 +9,19 @@
  */
 void print_buffer(char *b, int size)
 {
-    int i, j;
+int i, j;
 
-    if (size <= 0)
-    {
-        printf("\n");
-        return;
-    }
+if (size <= 0)
+{
+    printf("\n");
+    return;
+}
 
-    for (i = 0; i < size; i += 10)
-    {
-        printf("%08x: ", i);
+for (i = 0; i < size; i += 10)
+{
+    printf("%08x: ", i);
 
-        for (j = 0; j < 10; j++)
+    for (j = 0; j < 10; j++)
         {
             if (i + j < size)
                 printf("%02x", (unsigned char)b[i + j]);
